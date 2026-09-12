@@ -18,6 +18,13 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
             Boolean paid
     );
 
+    List<Payment> findByYearOrderByMonthDesc(Integer year);
+
+    List<Payment> findByMonthAndYearOrderByIdAsc(
+            Integer month,
+            Integer year
+    );
+
     List<Payment> findByMonthAndYearAndPersonNameContainingIgnoreCase(
             Integer month,
             Integer year,

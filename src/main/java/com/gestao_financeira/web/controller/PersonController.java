@@ -4,7 +4,9 @@ import com.gestao_financeira.web.dto.PersonCreateRequest;
 import com.gestao_financeira.web.dto.PersonPaymentResponse;
 import com.gestao_financeira.web.dto.PersonResponse;
 import com.gestao_financeira.web.dto.PersonUpdateRequest;
+import com.gestao_financeira.web.model.Person;
 import com.gestao_financeira.web.service.PersonService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,13 +41,13 @@ public class PersonController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<PersonResponse> save(@RequestBody PersonCreateRequest personCreateRequest){
-        PersonResponse entity = service.save(personCreateRequest);
+    public ResponseEntity<Person> save(@Valid @RequestBody PersonCreateRequest personCreateRequest){
+        Person entity = service.save(personCreateRequest);
         return new ResponseEntity<>(entity, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/id/{id}")
-    public ResponseEntity<PersonResponse> update(@PathVariable Long id, @RequestBody PersonUpdateRequest personUpdateRequest){
+    public ResponseEntity<PersonResponse> update(@PathVariable Long id, @Valid @RequestBody PersonUpdateRequest personUpdateRequest){
         PersonResponse entity = service.update(id, personUpdateRequest);
         return new ResponseEntity<>(entity, HttpStatus.OK);
     }

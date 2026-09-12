@@ -6,7 +6,15 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "payments")
+@Table(
+        name = "payments",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_payment_person_month_year",
+                        columnNames = {"person_id", "month", "year"}
+                )
+        }
+)
 public class Payment {
 
     @Id

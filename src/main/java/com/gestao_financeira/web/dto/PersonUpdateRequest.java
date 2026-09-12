@@ -1,12 +1,27 @@
 package com.gestao_financeira.web.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Objects;
 
 public class PersonUpdateRequest {
 
+    @NotBlank(message = "name can't be null")
     private String name;
+
+    @NotBlank(message = "number can't be null")
     private String number;
+
+    @NotNull(message = "Day of payment is obligatory")
+    @Min(value = 1)
+    @Max(value = 31)
     private Integer dayOfPayment;
+
+    @NotNull(message = "monthly of payment can't be null")
+    @Min(value = 0, message = "value can't be null")
     private Integer monthlyPayment;
 
     public PersonUpdateRequest() {

@@ -1,6 +1,7 @@
 package com.gestao_financeira.web.controller;
 
 import com.gestao_financeira.web.dto.DashboardResponse;
+import com.gestao_financeira.web.dto.MonthlyHistoryResponse;
 import com.gestao_financeira.web.dto.PaymentResponse;
 import com.gestao_financeira.web.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,36 @@ public class PaymentController {
 
         return ResponseEntity.ok(
                 paymentService.searchByName(name)
+        );
+    }
+
+    @PatchMapping("/{id}/pay")
+    public ResponseEntity<PaymentResponse> pay(@PathVariable Long id) {
+        return ResponseEntity.ok(paymentService.pay(id));
+    }
+
+    @PatchMapping("/{id}/unpay")
+    public ResponseEntity<PaymentResponse> unpay(@PathVariable Long id) {
+        return ResponseEntity.ok(paymentService.unpay(id));
+    }
+
+    @GetMapping("/history")
+    public ResponseEntity<List<MonthlyHistoryResponse>> getHistory(
+            @RequestParam Integer year) {
+
+        return ResponseEntity.ok(
+                paymentService.getHistory(year)
+        );
+    }
+
+    @GetMapping("/month/{year}/{month}")
+    public ResponseEntity<List<PaymentResponse>> findByMonthAndYear(
+            @PathVariable Integer year,
+            @PathVariable Integer month
+    ) {
+
+        return ResponseEntity.ok(
+                paymentService.findByMonthAndYear(month, year)
         );
     }
 }

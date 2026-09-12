@@ -4,11 +4,14 @@ import com.gestao_financeira.web.dto.PersonCreateRequest;
 import com.gestao_financeira.web.dto.PersonPaymentResponse;
 import com.gestao_financeira.web.dto.PersonResponse;
 import com.gestao_financeira.web.dto.PersonUpdateRequest;
+import com.gestao_financeira.web.model.Payment;
 import com.gestao_financeira.web.model.Person;
+import com.gestao_financeira.web.repository.PaymentRepository;
 import com.gestao_financeira.web.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.gestao_financeira.web.util.mapper.ObjectMapper.parseListObjects;
@@ -20,12 +23,33 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
 
-    public PersonResponse save(PersonCreateRequest personCreateRequest){
-        var entity = parseObject(personCreateRequest, Person.class);
+    @Autowired
+    private PaymentRepository paymentRepository;
 
-        entity.setPaid(false);
+    public Person save(PersonCreateRequest request) {
 
-        return parseObject(personRepository.save(entity), PersonResponse.class);
+        Person person = new Person();
+
+        person.setName(request.getName());
+        person.setNumber(request.getNumber());
+        person.setDayOfPayment(request.getDayOfPayment());
+        person.setMonthlyPayment(request.getMonthlyPayment());
+
+        Person savedPerson = personRepository.save(person);
+
+        LocalDate today = LocalDate.now();
+
+        Payment payment = new Payment();
+
+        payment.setPerson(savedPerson);
+        payment.setMonth(today.getMonthValue());
+        payment.setYear(today.getYear());
+        payment.setAmount(savedPerson.getMonthlyPayment());
+        payment.setPaid(false);
+
+        paymentRepository.save(payment);
+
+        return savedPerson;
     }
 
 

@@ -1,6 +1,7 @@
 package com.gestao_financeira.web.controller;
 
 import com.gestao_financeira.web.dto.PersonCreateRequest;
+import com.gestao_financeira.web.dto.PersonPaymentResponse;
 import com.gestao_financeira.web.dto.PersonResponse;
 import com.gestao_financeira.web.dto.PersonUpdateRequest;
 import com.gestao_financeira.web.service.PersonService;
@@ -27,6 +28,13 @@ public class PersonController {
     @GetMapping("/all")
     public ResponseEntity<List<PersonResponse>> findAll(){
         List<PersonResponse> entityList = service.findAll();
+        return new ResponseEntity<>(entityList, HttpStatus.OK);
+    }
+
+    @GetMapping("/payments/{payment}")
+    public ResponseEntity<List<PersonPaymentResponse>> findByisPaid(@PathVariable Boolean payment){
+        List<PersonPaymentResponse> entityList = service.findByIsPaid(payment);
+
         return new ResponseEntity<>(entityList, HttpStatus.OK);
     }
 

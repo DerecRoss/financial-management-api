@@ -1,6 +1,7 @@
 package com.gestao_financeira.web.service;
 
 import com.gestao_financeira.web.dto.PersonCreateRequest;
+import com.gestao_financeira.web.dto.PersonPaymentResponse;
 import com.gestao_financeira.web.dto.PersonResponse;
 import com.gestao_financeira.web.dto.PersonUpdateRequest;
 import com.gestao_financeira.web.model.Person;
@@ -53,6 +54,12 @@ public class PersonService {
         List<Person> entityList = personRepository.findAll();
 
         return parseListObjects(entityList, PersonResponse.class);
+    }
+
+    public List<PersonPaymentResponse> findByIsPaid(Boolean payment){
+        List<Person> entityList = personRepository.findByIsPaid(payment);
+
+        return parseListObjects(entityList, PersonPaymentResponse.class);
     }
 
     public void delete(Long id){

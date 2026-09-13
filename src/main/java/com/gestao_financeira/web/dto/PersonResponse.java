@@ -1,13 +1,25 @@
 package com.gestao_financeira.web.dto;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class PersonResponse {
 
+    @Schema(description = "Identifier of Person", example = "1")
     private Long id;
+
+    @Schema(description = "Name of user", example = "Tulio Zynga")
     private String name;
+
+    @Schema(description = "Number of user", example = "15998977910")
     private String number;
+
+    @Schema(description = "Day of payment for month")
     private Integer dayOfPayment;
+
+    @Schema(description = "Monthly payment for user")
     private Integer monthlyPayment;
+
     private Boolean isPaid;
 
     public PersonResponse() {

@@ -1,5 +1,6 @@
 package com.gestao_financeira.web.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -11,18 +12,22 @@ import java.util.Objects;
 public class PersonCreateRequest {
 
     @NotBlank(message = "name can't be null")
+    @Schema(description = "Name of user", example = "Tulio Zynga")
     private String name;
 
     @NotBlank(message = "number can't be null")
+    @Schema(description = "Number of user", example = "15998977910")
     private String number;
 
     @NotNull(message = "Day of payment is obligatory")
     @Min(value = 1)
     @Max(value = 31)
+    @Schema(description = "Day of payment for month")
     private Integer dayOfPayment;
 
     @NotNull(message = "monthly of payment can't be null")
     @Min(value = 0, message = "value can't be null")
+    @Schema(description = "Monthly payment for user")
     private Integer monthlyPayment;
 
     public PersonCreateRequest() {

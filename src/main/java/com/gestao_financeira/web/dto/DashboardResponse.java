@@ -1,16 +1,29 @@
 package com.gestao_financeira.web.dto;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class DashboardResponse {
 
+    @Schema(description = "Total people of team")
     private Integer totalPeople;
+
+    @Schema(description = "Total people paid")
     private Integer paidPeople;
+
+    @Schema(description = "Total people pending paid")
     private Integer pendingPeople;
 
+    @Schema(description = "Total amount expected")
     private Integer totalExpected;
+
+    @Schema(description = "Total amount received")
     private Integer totalReceived;
+
+    @Schema(description = "Total amount pending")
     private Integer totalPending;
 
+    @Schema(description = "Total payment percentage of team", example = "48,6%")
     private Double paymentPercentage;
 
     public DashboardResponse() {

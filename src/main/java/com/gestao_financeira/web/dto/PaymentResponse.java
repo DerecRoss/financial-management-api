@@ -1,16 +1,33 @@
 package com.gestao_financeira.web.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.time.LocalDate;
 
 public class PaymentResponse {
 
+    @Schema(description = "Identifier of Person", example = "1")
     private Long id;
+
+    @Schema(description = "Person identifier")
     private Long personId;
+
+    @Schema(description = "Name of user", example = "Tulio Zynga")
     private String name;
+
+    @Schema(description = "Number of user", example = "15998977910")
     private String number;
+
+    @Schema(description = "Amount of total users")
     private Integer amount;
+
+    @Schema(description = "Day of payment for month")
     private Integer dayOfPayment;
+
+    @Schema(description = "Payment of user", example = "true")
     private Boolean paid;
+
+    @Schema(description = "Payment at date by user", example = "2026-05-05")
     private LocalDate paidAt;
 
     public PaymentResponse() {

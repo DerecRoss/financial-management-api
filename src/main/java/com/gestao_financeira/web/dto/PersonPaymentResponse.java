@@ -1,7 +1,12 @@
 package com.gestao_financeira.web.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class PersonPaymentResponse {
+
+    @Schema(description = "Monthly payment for user")
     private Integer monthlyPayment;
+
     private Boolean isPaid;
 
     public PersonPaymentResponse() {
